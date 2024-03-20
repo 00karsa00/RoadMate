@@ -1,0 +1,729 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+    
+        * {
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+    
+        body {
+            /* font-family: Helvetica; */
+            -webkit-font-smoothing: antialiased;
+            font-family: 'lato', sans-serif;
+            background: #222;
+        }
+
+        .container table td input {
+            width: 100px;
+        }
+
+        ul.searchlist.active {
+            display: block;
+        }
+
+        ul.searchlist {
+            border-radius: 0 0 2px 2px;
+            border-top: 1px solid #e0e0e0;
+            position: absolute;
+            background-color: #fff;
+            color: #000;
+            box-shadow: 2px 3px 3px -2px rgb(0 0 0 / 25%);
+            overflow-x: hidden;
+            white-space: nowrap;
+            display: none;
+            width: 25%;
+            z-index: 99;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        ul.searchlist li {
+            font-size: 13px;
+            padding: 8px 10px;
+            margin-left: auto;
+            opacity: 1;
+            width: 100%;
+            font-weight: 500;
+            display: block;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .searchlist li:hover {
+            background-color: #e0e0e0; /* Change the background color to your preference */
+            cursor: pointer; /* Change the cursor style to indicate interactivity */
+        }
+                
+    
+    </style>
+    <!-- Bootstrap CSS link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+     <!-- Font Awesome for the delete icon -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-FdA1SVSkXRU8OMGW4WvU7rtRbA00PW3T4PHwAz3SwfRVIv1AgIUgJ1f6u04l47J" crossorigin="anonymous">
+    
+
+</head>
+
+<body> <!-- partial:index.partial.html -->
+    <!-- <form id="saleData"> -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 m-2">
+                <h4>Sale Billing</h4>
+                <%= billNo %>
+                </div>
+                <div class="col-md-12">
+                    <!-- Row 1 with 4 columns -->
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">Bill NO: </label>
+                                <input type="text" class="form-control input" id="billNumber" name="billNumber" placeholder="Enter Bill Number" required disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">Bill DATE: </label>
+                                <input type="date" class="form-control input" id="billDate" name="billDate"  required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">EWAY BILL NO: </label>
+                                <input type="text" class="form-control input" id="ewayBillNumber" placeholder="Enter EWAY BILL NO" name="ewayBillNumber"  required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">DELIVERY DATE </label>
+                                <input type="date" class="form-control input" id="deliveryDate" name="deliveryDate"  required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">CUSTOMER NAME: </label>
+                                <input type="text" class="form-control input" id="customerName" placeholder="Enter customer Name" name="customerName"  required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">PHONE NUMBER: </label>
+                                <input type="number" class="form-control input" id="phoneNumber" placeholder="Enter phone Number" name="phoneNumber"  required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <textarea class="form-control input" id="address" name="address" rows="4" placeholder="Enter address" style="height: 70px;" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="address">DELIVERY ADDRESS: </label>
+                                <textarea class="form-control input" id="deliveryAddress" name="deliveryAddress" rows="4" placeholder="Enter delivery address"  style="height: 70px;" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">TRANSACTION MODE: </label>
+                                <input type="text" class="form-control input" id="transactionMode" name="transactionModee" placeholder="Enter transaction mode" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-center" >
+                            <div class="form-group ">
+                                <input type="checkbox" class="input" id="igstCheckbox" name="igstCheckbox" value="true" required>
+                                <label for="igstCheckbox">IS IGST</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="container mt-2">
+                    <table class="table" id="saleTable">
+                        <thead>
+                            <tr>
+                                <th style="width: 30px">#</th>
+                                <th style="width: 100px">Code</th>
+                                <th style="width: 150px">Item name</th>
+                                <th style="width: 100px">Batch Code</th>
+                                <th style="width: 50px">Qty</th>
+                                <th style="width: 80px">Unit Price</th>
+                                <th style="width: 80px">MRP</th>
+                                <th style="width: 80px">Tax Value</th>
+                                <th style="width: 60px">GST%</th>
+                                <th style="width: 80px">GST Amt</th>
+                                <th style="width: 80px">Total</th>
+                                <th style="width: 100px">Staff</th>
+                                <th style="width: 100px"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tBody">
+                          
+                        </tbody>
+                    </table>
+                    <!-- Button to add a new row -->
+                    <button type="button" class="btn btn-primary" onclick="cloneAndAddRow(true)">Add Row</button>
+                </div>
+
+                <div class="col-md-12 mt-2">
+                    <!-- Row 1 with 4 columns -->
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="note">NOTE: </label>
+                                <textarea class="form-control input" id="note" name="note" rows="4" placeholder="Enter Note"  style="height: 70px;" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">VEHICLE NUMBER: </label>
+                                <input type="text" class="form-control input" id="vehicleNumber" name="vehicleNumber" placeholder="Enter Vehicle Number" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">DELIVERY CHARGE: </label>
+                                <input type="number" class="form-control input" id="deliveryCharge" name="deliveryCharge" placeholder="Enter Delivery Charge" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">TOTAL TAXABLE AMOUNT: </label>
+                                <input type="number" class="form-control input" id="totalTaxAmount" name="totalTaxAmount" placeholder="Enter Total Taxable Amount" required disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">OUT STANDING: </label>
+                                <input type="text" class="form-control input" id="outStanding" placeholder="Enter Out Standing" name="outStanding" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">DISCOUNT: </label>
+                                <input type="text" class="form-control input" id="discount" placeholder="Enter Discount" name="discount" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">GST AMOUNT: </label>
+                                <input type="number" class="form-control input" id="gstAmount" placeholder="Enter GST Amount" name="gstAmount" required disabled>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        
+                        <div class="col-md-8 mt-2 mb-2">
+                                <div>
+                                    <label>
+                                        <input class="input" type="radio" name="paymentOption" value="BANK TRANSFER" required> BANK TRANSFER
+                                    </label>
+                                    <label>
+                                        <input class="input" type="radio" name="paymentOption" value="CHEQUE" required> CHEQUE
+                                    </label>
+                                    <label >
+                                        <input class="input" type="radio" name="paymentOption" value="BOTH" required> BOTH
+                                    </label>
+                                    <label >
+                                        <input class="input" type="radio" name="paymentOption" value="BANK" required> BANK
+                                    </label>
+                                    <label>
+                                        <input class="input" type="radio" name="paymentOption" value="CASH" required> CASH
+                                    </label>
+                                </div>
+                        </div>   
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="billNumber">ROUND OFF: </label>
+                                    <input type="text" class="form-control input" id="roundOff" placeholder="Enter Round Off" name="roundOff" required >
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="billNumber">GRAND TOTAL: </label>
+                                    <input type="number" class="form-control input" id="grandTotal" required name="grandTotal" placeholder="Enter Grand Total" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <div class="form-group">
+                                    <label for="billNumber">AMOUNT : </label>
+                                    <input type="number" class="form-control input" id="amount" placeholder="Enter Amount" name="amount" required disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <button type="button" class="btn btn-primary mb-3" onclick="save('done')">Save</button>
+                            <!-- <button type="button" class="btn btn-primary mb-3" onclick="clearAllData()">Clear</button> -->
+                            <!-- <button type="button" class="btn btn-primary mb-3" onclick="save('return')">Return</button> -->
+                            <button type="button" class="btn btn-primary mb-3" onclick="save('holdBill')">Hold Bill</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- </form> -->
+</body>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
+
+
+<script>
+    var billNo = `<%= billNo %>`;
+    var itemCount = 0;
+    const loadData = async () => {
+        let billDetail = await axios.post('/api/admin/billDetails', { billNo });
+        result = billDetail.data;
+        console.log("billDetail => ",result)
+        updateBillDetails(result.data.saleDetail);
+        updateBillItemDetails(result.data.billDetails);
+    }
+
+    loadData();
+
+    const updateBillDetails = async (item) => {
+        const billNumber = document.getElementById('billNumber');
+        const billDate = document.getElementById('billDate');
+        const ewayBillNumber = document.getElementById('ewayBillNumber');
+        const deliveryDate = document.getElementById('deliveryDate');
+        const customerName = document.getElementById('customerName');
+        const phoneNumber = document.getElementById('phoneNumber');
+        const address = document.getElementById('address');
+        const deliveryAddress = document.getElementById('deliveryAddress');
+        const transactionMode = document.getElementById('transactionMode');
+        const igstCheckbox = document.getElementById('igstCheckbox');
+        const note = document.getElementById('note');
+        const vehicleNumber = document.getElementById('vehicleNumber');
+        const deliveryCharge = document.getElementById('deliveryCharge');
+        const totalTaxAmount = document.getElementById('totalTaxAmount');
+        const outStanding = document.getElementById('outStanding');
+        const discount = document.getElementById('discount');
+        const gstAmount = document.getElementById('gstAmount');
+        const paymentMode = document.querySelector('input[name=paymentOption]');
+        const amount = document.getElementById('amount');
+        const roundOff = document.getElementById('roundOff');
+        const grandTotal = document.getElementById('grandTotal');
+        console.log("item =>  ", item)
+        console.log("item.billDate ",item.billDate, moment(item.billDate).format('YYYY-MM-DD'))
+        if(item.billNumber) billNumber.value = item.billNumber;
+        if(item.billDate) billDate.value = moment(item.billDate).format('YYYY-MM-DD');
+        if(item.ewayBillNumber) ewayBillNumber.value = item.ewayBillNumber;
+        if(item.deliveryDate) deliveryDate.value = moment(item.deliveryDate).format('YYYY-MM-DD');
+        if(item.customerName) customerName.value = item.customerName;
+        if(item.phoneNumber) phoneNumber.value = item.phoneNumber;
+        if(item.address) address.value = item.address;
+        if(item.deliveryAddress) deliveryAddress.value = item.deliveryAddress;
+        if(item.transactionMode) transactionMode.value = item.transactionMode;
+        if(item.note) note.value = item.note;
+        if(item.vehicleNumber) vehicleNumber.value = item.vehicleNumber;
+        if(item.deliveryCharge) deliveryCharge.value = item.deliveryCharge;
+        if(item.totalTxableAmt) totalTaxAmount.value = item.totalTxableAmt;
+        if(item.outStanding) outStanding.value = item.outStanding;
+        discount.value = 0;
+        if(item.discount) discount.value = item.discount;
+        if(item.gstAmount) gstAmount.value = item.gstAmount;
+        if(item.paymentMode) {
+            const paymentMode = document.querySelector(`input[name=paymentOption][value=${ item.paymentMode }]`);
+            paymentMode.checked = true;
+        };    
+        if(item.amount) amount.value = item.amount;
+        if(item.roundOff) roundOff.value = item.roundOff;
+        if(item.grandTotal) grandTotal.value = item.grandTotal;
+        if(item.isIgst) {
+            igstCheckbox.checked = true
+        }
+        return
+    }
+
+    const updateBillItemDetails = async (items) => {
+        let str = "";
+        items.map(data => {
+            ++itemCount;
+            str += `
+                <tr id="bill-row-${ itemCount }">
+                    <td>${ itemCount }</td>
+                    <td>
+                        <input type="text" class="input" id="code-${ itemCount }"  name="code-${ itemCount }" value="${ data.code }" placeholder="Enter Code" required disabled>
+                    </td>
+                    <td>
+                        <div class="form-group ss-wrap" style="margin: 0px 15px;">
+                            <input type="text" class="input searchItem" id="item-${ itemCount }" name="item-${ itemCount }" value="${ data.itemName }" placeholder="Enter item" required>
+                                <ul class="searchlist" id="searchList-${ itemCount }">
+                                    <li>data 1</li>
+                                </ul>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="batch-code-${ itemCount }" name="batch-code-${ itemCount }" value="${ data.batchCode }" placeholder="Enter batch code" required disabled>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="qty-${ itemCount }" name="qty-${ itemCount }" data-field="qty" value="${ data.qty }" placeholder="Enter qty" required onkeypress="updateitem(this,'${ data.id }','${ itemCount }')">
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="unit-price-${ itemCount }" name="unit-price-${ itemCount }" value="${ data.unitPrice }" placeholder="Enter unit price" required disabled>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="mrp-${ itemCount }" name="mrp-${ itemCount }" value="${ data.mrp }" placeholder="Enter mrp" required disabled>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="tax-value-${ itemCount }" name="tax-value-${ itemCount }" value="${ data.taxValue }" placeholder="Enter tax value" required disabled>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="gst-precent-${ itemCount }" name="gst-precent-${ itemCount }" value="${ data.gstInPrecent }" placeholder="Enter gst price" required disabled>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="gst-amt-${ itemCount }" name="gst-amt-${ itemCount }" value="${ data.gstInAmount }" placeholder="Enter gst amount" required disabled>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="total-${ itemCount }" name="total-${ itemCount }" value="${ data.total }" placeholder="Enter total" required disabled>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="staff-${ itemCount }" name="staff-${ itemCount }" data-field="staff" onkeypress="updateitem(this,'${ data.id }','${ itemCount }')" value="${ data.staff || ""  }" placeholder="Enter staff" required>
+                        <input type="hidden" class="input" id="item-list-1" name="item-list-1" placeholder="Enter staff" required>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteRow('${ itemCount }','${ data.id }')">
+                            Remove
+                        </button>
+                    </td>
+                </tr>`;
+        })
+        document.getElementById("tBody").innerHTML = str;
+        return
+    }
+
+    const cloneAndAddRow = () => {
+        ++itemCount;
+           let str = `
+                <tr id="bill-row-${ itemCount }">
+                    <td>${ itemCount }</td>
+                    <td>
+                        <input type="text" class="input" id="code-${ itemCount }"  name="code-${ itemCount }" value="" placeholder="Enter Code" required disabled>
+                    </td>
+                    <td>
+                        <div class="form-group ss-wrap" style="margin: 0px 15px;">
+                            <input type="text" class="input searchItem" id="item-${ itemCount }" name="item-${ itemCount }" value="" placeholder="Enter item" required>
+                                <ul class="searchlist" id="searchList-${ itemCount }">
+                                    <li>data 1</li>
+                                </ul>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="batch-code-${ itemCount }" name="batch-code-${ itemCount }" value="" placeholder="Enter batch code" required disabled>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="qty-${ itemCount }" name="qty-${ itemCount }" data-field="qty" value="" placeholder="Enter qty" required>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="unit-price-${ itemCount }" name="unit-price-${ itemCount }" value="" placeholder="Enter unit price" required disabled>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="mrp-${ itemCount }" name="mrp-${ itemCount }" value="" placeholder="Enter mrp" required disabled>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="tax-value-${ itemCount }" name="tax-value-${ itemCount }" value="" placeholder="Enter tax value" required disabled>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="gst-precent-${ itemCount }" name="gst-precent-${ itemCount }" value="" placeholder="Enter gst price" required disabled>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="gst-amt-${ itemCount }" name="gst-amt-${ itemCount }" value="" placeholder="Enter gst amount" required disabled>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="total-${ itemCount }" name="total-${ itemCount }" value="" placeholder="Enter total" required disabled>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="staff-${ itemCount }" name="staff-${ itemCount }" data-field="staff" value="" placeholder="Enter staff" required>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm" id="remove-btn-${ itemCount }" onclick="deleteRow('${ itemCount }',null)">
+                            Remove
+                        </button>
+                    </td>
+                </tr>`;
+                document.getElementById("tBody").innerHTML += str;
+    }
+
+    document.body.addEventListener("mouseover", function (event) {
+        var searchWrapHovered = false;
+        var elements = document.querySelectorAll('.ss-wrap :hover');
+
+        for (var i = 0; i < elements.length; i++) {
+            if (elements[i] === event.target) {
+                searchWrapHovered = true;
+                break;
+            }
+        }
+
+        if (!searchWrapHovered) {
+            let searchListElements = document.querySelectorAll('.searchlist');
+            searchListElements.forEach(function(element) {
+                element.classList.remove('active');
+            })
+        }
+
+    });
+
+    document.addEventListener('keyup', function(event) {
+        console.log("event",event,event.target.id,event.target.classList.contains('searchItem'))
+        if (event.target.classList.contains('searchItem')) {
+            console.log(event.target.id);
+            let id = event.target.id.split('-')[1];
+            console.log(id)
+            if(event.target.value.length) {
+                axios.post('/api/admin/getProduct', { name: event.target.value })
+                    .then(response => {
+                        const result = response.data
+                        if (result.error) {
+                            event.target.value = "";
+                            return Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: result.message,
+                            });
+                        }
+                        console.log(result)
+                        let itemList = "";
+                        result.data.map((item, index) => {
+                            itemList += `
+                                <li onclick="selectItem('${ item.batchCode }','${ id }')"> 
+                                    ${ item.name } 
+                                </li>
+                            `;
+                        })
+                        let searchElement = document.getElementById(`searchList-${id}`);
+                        searchElement.innerHTML = itemList;
+                        searchElement.classList.add("active");
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+          
+        }
+    });
+
+    const selectItem = async (batchCode, i) => {
+        let billItemDetail = await axios.post('/api/admin/addItemToBill', { billNo, batchCode });
+        let result = billItemDetail.data;
+        if (result.error) {
+          return Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: result.message,
+          });
+        }
+        updateBillDetails({
+            totalTxableAmt: result.data.totalTaxableAmount,
+            amount: result.data.totalAmount,
+            gstAmount: result.data.gstAmount,
+            discount: result.data.discount,
+            roundOff: result.data.roundOff,
+            grandTotal: result.data.grandTotal,
+        })
+        let searchElement = document.getElementById(`searchList-${i}`);
+        searchElement.classList.remove("active");
+        updateItemDetails(i, result.data.itemDetail)
+        return Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: result.message,
+        });
+    }
+
+    const updateItemDetails = (id, item) => {
+        let code = document.getElementById(`code-${ id }`);
+        let name = document.getElementById(`item-${ id }`);
+        let batchCode = document.getElementById(`batch-code-${ id }`);
+        let qty = document.getElementById(`qty-${ id }`);
+        let unitPrice = document.getElementById(`unit-price-${ id }`);
+        let mrp = document.getElementById(`mrp-${ id }`);
+        let taxValue = document.getElementById(`tax-value-${ id }`);
+        let gstPercent = document.getElementById(`gst-precent-${ id }`);
+        let gstAmt = document.getElementById(`gst-amt-${ id }`);
+        let totalAmt = document.getElementById(`total-${ id }`);
+        let staff = document.getElementById(`staff-${ id }`);
+        let removeBtn = document.getElementById(`remove-btn-${ id }`)
+        if(item.code) code.value = item.code;
+        if(item.itemName) name.value = item.itemName;
+        if(item.batchCode) batchCode.value = item.batchCode;
+        if(item.unitPrice) unitPrice.value = item.unitPrice;
+        if(item.mrp) mrp.value = item.mrp;
+        if(item.taxValue) taxValue.value = item.taxValue;
+        if(item.gstInPrecent) gstPercent.value = item.gstInPrecent;
+        if(item.gstInAmount) gstAmt.value = item.gstInAmount;
+        if(item.total) totalAmt.value = item.total;
+        if(item.qty) {
+            qty.value = item.qty;
+            qty.setAttribute('onkeypress',`updateitem(this,'${ item.id }','${ id }')`)
+        }
+        if(item.staff) {
+            staff.value = item.staff;
+            staff.setAttribute('onkeypress',`updateitem(this,'${ item.id }','${ id }')`)
+        }
+        if(item.id) {
+            removeBtn.setAttribute('onclick',`deleteRow('${ id }','${ item.id }')`)
+        }
+    }
+
+    async function deleteRow(row, itemId) {
+        if(itemId) {
+            let removeItem = await axios.post('/api/admin/removeItemOnBill', { itemId,billNo });
+            let result = removeItem.data;
+            if (result.error) {
+                return Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: result.message,
+                });
+            }
+            updateBillDetails({
+                totalTxableAmt: result.data.totalTaxableAmount,
+                amount: result.data.totalAmount,
+                gstAmount: result.data.gstAmount,
+                discount: result.data.discount,
+                roundOff: result.data.roundOff,
+                grandTotal: result.data.grandTotal,
+            })
+        }
+        let elementToRemove = document.getElementById(`bill-row-${row}`);
+        console.log("elementToRemove => ",elementToRemove)
+        if (elementToRemove) {
+            elementToRemove.remove();
+        } else {
+            console.error('Element not found');
+        }
+        return Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: result.message,
+        });
+    }
+ 
+    const updateitem  = async (event, itemId, row) => {
+        if (this.event.keyCode === 13) {
+            
+            let updateItem = {
+                itemId, billNo
+            }
+            if(event.dataset.field=='qty' && !(event.value>0)) {
+                return Swal.fire({
+                    icon: "error",
+                    title: "Qty must be greater then 0",
+                });
+            }
+            updateItem[event.dataset.field] = event.value;
+            let updateData = await axios.post('/api/admin/updateBillItem', updateItem);
+            let result = updateData.data;
+            if (result.error) {
+                return Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: result.message,
+                });
+            }
+            updateBillDetails({
+                totalTxableAmt: result.data.totalTaxableAmount,
+                amount: result.data.totalAmount,
+                gstAmount: result.data.gstAmount,
+                discount: result.data.discount,
+                roundOff: result.data.roundOff,
+                grandTotal: result.data.grandTotal,
+            })
+            updateItemDetails(row, result.data.itemDetail)
+            return Swal.fire({
+                icon: "success",
+                title: "Success",
+                text: result.message,
+            });
+        }
+       
+    }
+
+    const save = (status) => {
+
+        const billDate = document.getElementById('billDate');
+        const ewayBillNumber = document.getElementById('ewayBillNumber');
+        const deliveryDate = document.getElementById('deliveryDate');
+        const customerName = document.getElementById('customerName');
+        const phoneNumber = document.getElementById('phoneNumber');
+        const address = document.getElementById('address');
+        const deliveryAddress = document.getElementById('deliveryAddress');
+        const transactionMode = document.getElementById('transactionMode');
+        const igstCheckbox = document.getElementById('igstCheckbox');
+        const note = document.getElementById('note');
+        const vehicleNumber = document.getElementById('vehicleNumber');
+        const paymentMode = document.querySelector('input[name=paymentOption]:checked');
+        const amount = document.getElementById('amount');
+        const roundOff = document.getElementById('roundOff');
+        const grandTotal = document.getElementById('grandTotal');
+        const outStanding = document.getElementById('outStanding');
+
+
+        let data = {
+            billNo,
+            billDate: billDate.value,
+            ewayBillNumber: ewayBillNumber.value,
+            deliveryDate: deliveryDate.value,
+            customerName: customerName.value,
+            phoneNumber: phoneNumber.value,
+            address: address.value,
+            deliveryAddress: deliveryAddress.value,
+            transactionMode: transactionMode.value,
+            isIgst: igstCheckbox.checked,
+            note: note.value,
+            vehicleNumber: vehicleNumber.value,
+            paymentMode: paymentMode ? paymentMode.value : "",
+            status: status,
+            outStanding: outStanding.value
+        }
+        axios.post('/api/admin/updateSalesBill', data)
+            .then(response => {
+                const result = response.data
+                if (result.error) {
+                    return Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: result.message,
+                    });
+                }
+                console.log(result)
+                return Swal.fire({
+                    icon: "success",
+                    title: "Success",
+                    text: result.message,
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+    
+    
+  
+</script>
+
+</html>

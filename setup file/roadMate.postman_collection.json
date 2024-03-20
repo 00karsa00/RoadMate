@@ -1,0 +1,359 @@
+{
+	"info": {
+		"_postman_id": "2a867e3f-d15e-4947-b867-b48858bfa716",
+		"name": "roadMate",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10233839",
+		"_collection_link": "https://www.postman.com/bold-station-630909/workspace/karthick/collection/10233839-2a867e3f-d15e-4947-b867-b48858bfa716?action=share&source=collection_link&creator=10233839"
+	},
+	"item": [
+		{
+			"name": "adminLogin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"karthi1@gmail11.com\",\n    \"password\" : \"12345\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/api/admin/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"admin",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createSalesBill",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"karthi1@gmail11.com\",\n    \"password\" : \"12345\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/api/admin/createSalesBill",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"admin",
+						"createSalesBill"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addItemToBill",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"batchCode\": \"\",\n    \"billNo\": \"TR1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/api/admin/addItemToBill",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"admin",
+						"addItemToBill"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "removeItemOnBill",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"itemId\": \"BC1234\",\n    \"billNo\": \"TR1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/api/admin/removeItemOnBill",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"admin",
+						"removeItemOnBill"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateSalesBill",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"itemId\": \"3\",\n    \"billNo\": \"TR1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/api/admin/updateSalesBill",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"admin",
+						"updateSalesBill"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getBillList",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"itemId\": \"3\",\n    \"billNo\": \"TR1\",\n    \"customerName\": \"Karthick\",\n    \"ewayBillNumber\":  \"kdnsjlnjsf\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/api/admin/getBillList",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"admin",
+						"getBillList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getProduct",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"itemId\": \"3\",\n    \"billNo\": \"TR1\",\n    \"customerName\": \"Karthick\",\n    \"ewayBillNumber\":  \"kdnsjlnjsf\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/api/admin/getProduct",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"admin",
+						"getProduct"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "billDetails",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"karthi1@gmail11.com\",\n    \"password\" : \"12345\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/api/admin/billDetails",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"admin",
+						"billDetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateBillItem",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"itemId\": \"3\",\n    \"billNo\": \"TR1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/api/admin/updateBillItem",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"admin",
+						"updateBillItem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addItem",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"\",\n    \"code\": \"\",\n    \"batchCode\": \"\",\n    \"price\": 0,\n    \"taxValue\": 0,\n    \"gstPercent\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/api/admin/addItem",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"admin",
+						"addItem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getItemList",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/api/admin/getItemList",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"admin",
+						"getItemList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"karthi1@gmail11.com\",\n    \"password\" : \"12345\",\n    \"username\":\"etdf\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/api/admin/register",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"admin",
+						"register"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,821 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+    
+        * {
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+    
+        body {
+            /* font-family: Helvetica; */
+            -webkit-font-smoothing: antialiased;
+            font-family: 'lato', sans-serif;
+            background: #222;
+        }
+
+        .container table td input {
+            width: 100px;
+        }
+
+        ul.searchlist.active {
+            display: block;
+        }
+
+        ul.searchlist {
+            border-radius: 0 0 2px 2px;
+            border-top: 1px solid #e0e0e0;
+            position: absolute;
+            background-color: #fff;
+            color: #000;
+            box-shadow: 2px 3px 3px -2px rgb(0 0 0 / 25%);
+            overflow-x: hidden;
+            white-space: nowrap;
+            display: none;
+            width: 25%;
+            z-index: 99;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        ul.searchlist li {
+            font-size: 13px;
+            padding: 8px 10px;
+            margin-left: auto;
+            opacity: 1;
+            width: 100%;
+            font-weight: 500;
+            display: block;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .searchlist li:hover {
+            background-color: #e0e0e0; /* Change the background color to your preference */
+            cursor: pointer; /* Change the cursor style to indicate interactivity */
+        }
+                
+    
+    </style>
+    <!-- Bootstrap CSS link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+     <!-- Font Awesome for the delete icon -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-FdA1SVSkXRU8OMGW4WvU7rtRbA00PW3T4PHwAz3SwfRVIv1AgIUgJ1f6u04l47J" crossorigin="anonymous">
+    
+
+</head>
+
+<body> <!-- partial:index.partial.html -->
+    <!-- <form id="saleData"> -->
+        <div class="container"> 
+            <a href="/" >
+                <button class="ui-btn" style="margin-left: 10px">
+                    <span>
+                        Dashbord
+                    </span>
+                </button>
+            </a>
+            <div class="row">
+                <div class="col-md-12 m-2">
+                <h4>Sale Billing</h4>
+                <%= respose.billNo %>
+                </div>
+                <div class="col-md-12">
+                    <!-- Row 1 with 4 columns -->
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">Bill NO: </label>
+                                <input type="text" class="form-control input" id="billNumber" name="billNumber" placeholder="Enter Bill Number" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">Bill DATE: </label>
+                                <input type="date" class="form-control input" id="billDate" name="billDate"  required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">EWAY BILL NO: </label>
+                                <input type="text" class="form-control input" id="ewayBillNumber" placeholder="Enter EWAY BILL NO" name="ewayBillNumber"  required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">DELIVERY DATE </label>
+                                <input type="date" class="form-control input" id="deliveryDate" name="deliveryDate"  required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">CUSTOMER NAME: </label>
+                                <input type="text" class="form-control input" id="customerName" placeholder="Enter customer Name" name="customerName"  required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">PHONE NUMBER: </label>
+                                <input type="number" class="form-control input" id="phoneNumber" placeholder="Enter phone Number" name="phoneNumber"  required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <textarea class="form-control input" id="address" name="address" rows="4" placeholder="Enter address" style="height: 70px;" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="address">DELIVERY ADDRESS: </label>
+                                <textarea class="form-control input" id="deliveryAddress" name="deliveryAddress" rows="4" placeholder="Enter delivery address"  style="height: 70px;" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">TRANSACTION MODE: </label>
+                                <input type="text" class="form-control input" id="transactionMode" name="transactionModee" placeholder="Enter transaction mode" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-center" >
+                            <div class="form-group ">
+                                <input type="checkbox" class="input" id="igstCheckbox" name="igstCheckbox" value="true" required>
+                                <label for="igstCheckbox">IS IGST</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="container mt-2">
+                    <table class="table" id="saleTable">
+                        <thead>
+                            <tr>
+                                <th style="width: 30px">#</th>
+                                <th style="width: 100px">Code</th>
+                                <th style="width: 150px">Item name</th>
+                                <th style="width: 100px">Batch Code</th>
+                                <th style="width: 50px">Qty</th>
+                                <th style="width: 80px">Unit Price</th>
+                                <th style="width: 80px">MRP</th>
+                                <th style="width: 80px">Tax Value</th>
+                                <th style="width: 60px">GST%</th>
+                                <th style="width: 80px">GST Amt</th>
+                                <th style="width: 80px">Total</th>
+                                <th style="width: 100px">Staff</th>
+                                <th style="width: 100px"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tBody">
+                            <!-- Add your data rows here -->
+                            <!-- <tr>
+                                <td>1</td>
+                                <td>
+                                    <input type="text" class="input" id="code-1"  name="code-1" placeholder="Enter Code" required disabled>
+                                </td>
+                                <td>
+                                   
+                                  
+                                </td>
+                                <td>
+                                    <input type="text" class="input" id="batch-code-1" name="batch-code-1" placeholder="Enter batch code" required disabled>
+                                </td>
+                                <td>
+                                    <input type="number" class="input" id="qty-1" name="qty-1" placeholder="Enter qty" required onkeyup="updateQty(this,'1')">
+                                </td>
+                                <td>
+                                    <input type="number" class="input" id="unit-price-1" name="unit-price-1" placeholder="Enter unit price" required disabled>
+                                </td>
+                                <td>
+                                    <input type="number" class="input" id="mrp-1" name="mrp-1" placeholder="Enter mrp" required disabled>
+                                </td>
+                                <td>
+                                    <input type="number" class="input" id="tax-value-1" name="tax-value-1" placeholder="Enter tax value" required disabled>
+                                </td>
+                                <td>
+                                    <input type="number" class="input" id="gst-precent-1" name="gst-precent-1" placeholder="Enter gst precent" required disabled>
+                                </td>
+                                <td>
+                                    <input type="number" class="input" id="gst-amt-1" name="gst-amt-1" placeholder="Enter gst amount"  disabled>
+                                </td>
+                                <td>
+                                    <input type="number" class="input" id="total-1" name="total-1" placeholder="Enter total" required disabled>
+                                </td>
+                                <td>
+                                    <input type="text" class="input" id="staff-1" name="staff-1" placeholder="Enter staff" required>
+                                    <input type="hidden" class="input" id="item-list-1" name="item-list-1" placeholder="Enter staff" required>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteRow(this)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr> -->
+                            <!-- Add more rows as needed -->
+                        </tbody>
+                    </table>
+                    <!-- Button to add a new row -->
+                    <button type="button" class="btn btn-primary" onclick="cloneAndAddRow(true)">Add Row</button>
+                </div>
+
+                <div class="col-md-12 mt-2">
+                    <!-- Row 1 with 4 columns -->
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="note">NOTE: </label>
+                                <textarea class="form-control input" id="note" name="note" rows="4" placeholder="Enter Note"  style="height: 70px;" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">VEHICLE NUMBER: </label>
+                                <input type="text" class="form-control input" id="vehicleNumber" name="vehicleNumber" placeholder="Enter Vehicle Number" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">DELIVERY CHARGE: </label>
+                                <input type="number" class="form-control input" id="deliveryCharge" name="deliveryCharge" placeholder="Enter Delivery Charge" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">TOTAL TAXABLE AMOUNT: </label>
+                                <input type="number" class="form-control input" id="totalTaxAmount" name="totalTaxAmount" placeholder="Enter Total Taxable Amount" required disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">OUT STANDING: </label>
+                                <input type="text" class="form-control input" id="outStanding" placeholder="Enter Out Standing" name="outStanding" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">DISCOUNT: </label>
+                                <input type="text" class="form-control input" id="discount" placeholder="Enter Discount" name="discount" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="billNumber">GST AMOUNT: </label>
+                                <input type="number" class="form-control input" id="gstAmount" placeholder="Enter GST Amount" name="gstAmount" required disabled>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        
+                        <div class="col-md-8 mt-2 mb-2">
+                                <div>
+                                    <label>
+                                        <input class="input" type="radio" name="paymentOption" value="BANK TRANSFER" required> BANK TRANSFER
+                                    </label>
+                                    <label>
+                                        <input class="input" type="radio" name="paymentOption" value="CHEQUE" required> CHEQUE
+                                    </label>
+                                    <label >
+                                        <input class="input" type="radio" name="paymentOption" value="BOTH" required> BOTH
+                                    </label>
+                                    <label >
+                                        <input class="input" type="radio" name="paymentOption" value="BANK" required> BANK
+                                    </label>
+                                    <label>
+                                        <input class="input" type="radio" name="paymentOption" value="CASH" required> CASH
+                                    </label>
+                                </div>
+                        </div>   
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="billNumber">ROUND OFF: </label>
+                                    <input type="text" class="form-control input" id="roundOff" placeholder="Enter Round Off" name="roundOff" required >
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="billNumber">GRAND TOTAL: </label>
+                                    <input type="number" class="form-control input" id="grandTotal" required name="grandTotal" placeholder="Enter Grand Total" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <div class="form-group">
+                                    <label for="billNumber">AMOUNT : </label>
+                                    <input type="number" class="form-control input" id="amount" placeholder="Enter Amount" name="amount" required disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <button type="button" class="btn btn-primary mb-3" onclick="save('done')">Save</button>
+                            <button type="button" class="btn btn-primary mb-3" onclick="clearAllData()">Clear</button>
+                            <button type="button" class="btn btn-primary mb-3" onclick="save('return')">Return</button>
+                            <button type="button" class="btn btn-primary mb-3" onclick="save('holdBill')">Hold Bill</button>
+                            <button type="submit" class="btn btn-primary mb-3" onclick="save('holdBill')">Hold Bill</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- </form> -->
+</body>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI/t1fWCfZv3l1Iq3b9tZFz4DoiZtd6qSeFy3ME=" crossorigin="anonymous"></script>
+
+<script>
+     function deleteRow(element) {
+        // Find the row and remove it
+        const row = element.closest("tr");
+        row.parentNode.removeChild(row);
+    }
+
+    function cloneAndAddRow(isNew = false) {
+        let str = ""; 
+        let count = 0;
+        Object.keys(itemList).map(item => {
+            if(item != 'itemTotal') {
+                count++; 
+                let data = itemList[item];
+                str += `
+                <tr>
+                    <td>${ item }</td>
+                    <td>
+                        <input type="text" class="input" id="code-${ item }"  name="code-${ item }" value="${ data.code }" placeholder="Enter Code" required disabled>
+                    </td>
+                    <td>
+                        <div class="form-group ss-wrap" style="margin: 0px 15px;">
+                            <input type="text" class="input searchItem" id="item-${ item }" name="item-${ item }" value="${ data.name }" placeholder="Enter item" required>
+                                <ul class="searchlist" id="searchList-${ item }">
+                                    <li>data 1</li>
+                                </ul>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="batch-code-${ item }" name="batch-code-${ item }" value="${ data.batchCode }" placeholder="Enter batch code" required disabled>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="qty-${ item }" name="qty-${ item }" value="${ data.qty }" placeholder="Enter qty" required onkeyup="updateQty(this, '${ item }')">
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="unit-price-${ item }" name="unit-price-${ item }" value="${ data.price }" placeholder="Enter unit price" required disabled>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="mrp-${ item }" name="mrp-${ item }" value="${ data.price*data.qty }" placeholder="Enter mrp" required disabled>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="tax-value-${ item }" name="tax-value-${ item }" value="${ data.price*data.qty }" placeholder="Enter tax value" required disabled>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="gst-precent-${ item }" name="gst-precent-${ item }" value="${ data.gstPercent }" placeholder="Enter gst price" required disabled>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="gst-amt-${ item }" name="gst-amt-${ item }" value="${ ((data.gstPercent / 100) * data.price) * data.qty }" placeholder="Enter gst amount" required disabled>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="total-${ item }" name="total-${ item }" value="${ (((data.gstPercent / 100) * data.price) * data.qty)+data.price+data.taxValue }" placeholder="Enter total" required disabled>
+                    </td>
+                    <td>
+                        <input type="text" class="input" id="staff-${ item }" name="staff-${ item }" value="${ data.staff }" placeholder="Enter staff" required>
+                        <input type="hidden" class="input" id="item-list-1" name="item-list-1" placeholder="Enter staff" required>
+
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteRow('${ item }')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>`;
+            }
+        })
+         // Get the table element by its ID
+         var table = document.getElementById("tBody");
+        // Get the number of rows in the table
+        var rowCount = table.rows.length + count +1;
+        console.log("rowCount => ",rowCount,itemList.length)
+        if(isNew) {
+            str += `
+            <tr>
+                <td>${ rowCount }</td>
+                <td>
+                    <input type="text" class="input" id="code-${ rowCount }"  name="code-${ rowCount }" placeholder="Enter Code" required disabled>
+                </td>
+                <td>
+                    <div class="form-group ss-wrap" style="margin: 0px 15px;">
+                        <input type="text" class="input searchItem" id="item-${ rowCount }" name="item-${ rowCount }" placeholder="Enter item" required>
+                            <ul class="searchlist" id="searchList-${ rowCount }">
+                                <li>data 1</li>
+                            </ul>
+                    </div>
+                </td>
+                <td>
+                    <input type="text" class="input" id="batch-code-${ rowCount }" name="batch-code-${ rowCount }" placeholder="Enter batch code" required disabled>
+                </td>
+                <td>
+                    <input type="text" class="input" id="qty-${ rowCount }" name="qty-${ rowCount }" placeholder="Enter qty" required onclick="onkeyup(this, '${ rowCount }')">
+                </td>
+                <td>
+                    <input type="text" class="input" id="unit-price-${ rowCount }" name="unit-price-${ rowCount }" placeholder="Enter unit price" required disabled>
+                </td>
+                <td>
+                    <input type="text" class="input" id="mrp-${ rowCount }" name="mrp-${ rowCount }" placeholder="Enter mrp" required disabled>
+                </td>
+                <td>
+                    <input type="text" class="input" id="tax-value-${ rowCount }" name="tax-value-${ rowCount }" placeholder="Enter tax value" required disabled>
+                </td>
+                <td>
+                    <input type="text" class="input" id="gst-precent-${ rowCount }" name="gst-precent-${ rowCount }" placeholder="Enter gst price" required disabled>
+                </td>
+                <td>
+                    <input type="text" class="input" id="gst-amt-${ rowCount }" name="gst-amt-${ rowCount }" placeholder="Enter gst amount" required disabled>
+                </td>
+                <td>
+                    <input type="text" class="input" id="total-${ rowCount }" name="total-${ rowCount }" placeholder="Enter total" required disabled>
+                </td>
+                <td>
+                    <input type="text" class="input" id="staff-${ rowCount }" name="staff-${ rowCount }" placeholder="Enter staff" required>
+                    <input type="hidden" class="input" id="item-list-1" name="item-list-1" placeholder="Enter staff" required>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteRow("${rowCount}") >
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>`;
+        }
+
+        document.getElementById("tBody").innerHTML = "";
+        const tbody = document.getElementById("tBody");
+        tbody.insertAdjacentHTML('beforeend', str);
+        // Create a temporary container element
+        // let tempContainer = document.createElement('div');
+        // tempContainer.innerHTML = str;
+        // // Append the first child of the container (the new row) to the tbody
+        // tbody.appendChild(tempContainerx);
+    }
+
+    const clearAllData = () => {
+      
+        document.querySelectorAll(".input").forEach(function(element) {
+            element.value = "";
+            element.checked = false;
+        });
+    }
+
+
+</script>
+<script>
+    var itemList = {}
+
+    const save = (status) => {
+
+        const billNumber = document.getElementById('billNumber');
+        const billDate = document.getElementById('billDate');
+        const ewayBillNumber = document.getElementById('ewayBillNumber');
+        const deliveryDate = document.getElementById('deliveryDate');
+        const customerName = document.getElementById('customerName');
+        const phoneNumber = document.getElementById('phoneNumber');
+        const address = document.getElementById('address');
+        const deliveryAddress = document.getElementById('deliveryAddress');
+        const transactionMode = document.getElementById('transactionMode');
+        const igstCheckbox = document.getElementById('igstCheckbox');
+        const note = document.getElementById('note');
+        const vehicleNumber = document.getElementById('vehicleNumber');
+        const deliveryCharge = document.getElementById('deliveryCharge');
+        const totalTaxAmount = document.getElementById('totalTaxAmount');
+        const outStanding = document.getElementById('outStanding');
+        const discount = document.getElementById('discount');
+        const gstAmount = document.getElementById('gstAmount');
+        const paymentMode = document.querySelector('input[name=paymentOption]:checked');
+        const amount = document.getElementById('amount');
+        const roundOff = document.getElementById('roundOff');
+        const grandTotal = document.getElementById('grandTotal');
+         // Get the form element by its ID
+
+        // Get the table element by its ID
+        let table = document.getElementById("saleTable");
+        // Get the number of rows in the table
+        let rowCount = table.rows.length;
+        // Display the result
+        console.log("Number of rows in the table: " + rowCount);
+        let itemDetails = [];
+        for(let i = 1 ; i <= rowCount-1 ; i++) {
+            const code = document.getElementById(`code-${ i }`);
+            const itemName = document.getElementById(`item-${ i }`);
+            const batchCode = document.getElementById(`batch-code-${ i }`);
+            const qty = document.getElementById(`qty-${ i }`);
+            const unitPrice = document.getElementById(`unit-price-${ i }`);
+            const mrp = document.getElementById(`mrp-${ i }`);
+            const taxValue = document.getElementById(`tax-value-${ i }`);
+            const gstInPrecent = document.getElementById(`gst-precent-${ i }`);
+            const gstAmount = document.getElementById(`gst-amt-${ i }`);
+            const total = document.getElementById(`total-${ i }`);
+            const staff = document.getElementById(`staff-${ i }`);
+            itemDetails.push({
+                code: code.value, 
+                itemName: itemName.value, 
+                batchCode: batchCode.value, 
+                qty: qty.value, 
+                unitPrice: unitPrice.value, 
+                mrp: mrp.value, 
+                taxValue: taxValue.value, 
+                gstInPrecent: gstInPrecent.value, 
+                gstAmount: gstAmount.value, 
+                total: total.value, 
+                staff: staff.value
+            })
+        }
+        if(!itemDetails.length) {
+            return Swal.fire({
+                icon: "error",
+                title: "Validation",
+                text: "Enter item Details",
+            });
+        }
+
+        let data = {
+            billNumber: billNumber.value,
+            billDate: billDate.value,
+            ewayBillNumber: ewayBillNumber.value,
+            deliveryDate: deliveryDate.value,
+            customerName: customerName.value,
+            phoneNumber: phoneNumber.value,
+            address: address.value,
+            deliveryAddress: deliveryAddress.value,
+            transactionMode: transactionMode.value,
+            isIgst: igstCheckbox.checked,
+            note: note.value,
+            vehicleNumber: vehicleNumber.value,
+            deliveryCharge: deliveryCharge.value,
+            totalTxableAmt: totalTaxAmount.value,
+            outStanding: outStanding.value,
+            discount: discount.value,
+            gstAmount: gstAmount.value,
+            paymentMode: paymentMode ? paymentMode.value : "",
+            amount: amount.value,
+            roundOff: roundOff.value,
+            grandTotal: grandTotal.value,
+            status: status,
+            itemDetails: itemDetails
+        }
+        axios.post('/api/admin/createSalesBill', data)
+            .then(response => {
+                const result = response.data
+                if (result.error) {
+                    return Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: result.message,
+                    });
+                }
+                console.log(result)
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    const searchProdcut = (event) => {
+        axios.post('/api/admin/getProduct', {  name: data.value  })
+            .then(response => {
+                const result = response.data
+                if (result.error) {
+                    return Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: result.message,
+                    });
+                }
+                console.log(result)
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    document.body.addEventListener("mouseover", function (event) {
+        var searchWrapHovered = false;
+        var elements = document.querySelectorAll('.ss-wrap :hover');
+
+        for (var i = 0; i < elements.length; i++) {
+            if (elements[i] === event.target) {
+                searchWrapHovered = true;
+                break;
+            }
+        }
+
+        if (!searchWrapHovered) {
+            let searchListElements = document.querySelectorAll('.searchlist');
+            searchListElements.forEach(function(element) {
+                element.classList.remove('active');
+            })
+        }
+
+    });
+
+    // $('#searchList').on('click',"li",function(){
+    //     $("#searchbar").val(this.innerText);
+    //     $('#searchList').html('')
+    //     $('#searchclick').trigger('click')
+    // })
+
+    document.addEventListener('keyup', function(event) {
+        console.log("event",event,event.target.id,event.target.classList.contains('searchItem'))
+        if (event.target.classList.contains('searchItem')) {
+            console.log(event.target.id);
+            let id = event.target.id.split('-')[1];
+            console.log(id)
+            if(event.target.value.length) {
+                axios.post('/api/admin/getProduct', { name: event.target.value })
+                    .then(response => {
+                        const result = response.data
+                        if (result.error) {
+                            return Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: result.message,
+                            });
+                        }
+                        console.log(result)
+                        let itemList = "";
+                        result.data.map((item, index) => {
+                            itemList += `
+                                <li onclick="selectItem('item-data-${ id }-${ index }','${ id }')"> 
+                                    ${ item.name } 
+                                    <input type="hidden" id="item-data-${ id }-${ index }" value='${ JSON.stringify(item) }' />
+                                </li>
+                            `;
+                        })
+                        let searchElement = document.getElementById(`searchList-${id}`);
+                        searchElement.innerHTML = itemList;
+                        searchElement.classList.add("active");
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+          
+        }
+    });
+    
+
+    const selectItem = (element, i) => {
+        let itemData = document.getElementById(element);
+        let data = JSON.parse(itemData.value);
+        // let temData = document.getElementById(`item-list-${ i }`).value;
+        // if(temData.length) {
+
+        // }    
+        console.log("data => ",data)
+        document.getElementById(`code-${ i }`).value = data.code;
+        document.getElementById(`item-${ i }`).value = data.name;
+        document.getElementById(`batch-code-${ i }`).value = data.batchCode;
+        document.getElementById(`qty-${ i }`).value = 1;
+        document.getElementById(`unit-price-${ i }`).value = data.price;
+        document.getElementById(`mrp-${ i }`).value = data.price;
+        document.getElementById(`tax-value-${ i }`).value = data.taxValue;
+        document.getElementById(`gst-precent-${ i }`).value = data.gstPercent;
+        document.getElementById(`gst-amt-${ i }`).value = ((data.gstPercent / 100) * data.price) * 1;
+        document.getElementById(`total-${ i }`).value = (((data.gstPercent / 100) * data.price) * 1)+data.price+data.taxValue;
+        document.getElementById(`staff-${ i }`).value = data.staff;
+        document.getElementById(`item-list-${ i }`).value = `${JSON.stringify(data)}`;
+        itemList[i] = {
+            code: data.code,
+            name: data.name,
+            batchCode: data.batchCode,
+            price: data.price,
+            taxValue: data.taxValue,
+            gstPercent: data.gstPercent,
+            qty: 1,
+            staff: data.staff
+        }
+        updateDate();
+    }
+    
+    const updateDate = () => {
+        itemList['itemTotal'] = {};
+        let  totalTaxAmount = 0,
+            totalGst = 0,
+            grandTotal = 0,
+            amount = 0,
+            discount = 0,
+            roundOff = 0;
+        Object.keys(itemList).map((item) => {
+            if(item != 'itemTotal') {
+                let data = itemList[item];
+                console.log("item => ", data)
+                let totalAmount = (data.qty * data.price),
+                    gstAmount = (data.gstPercent / 100) * totalAmount,
+                    totalTax = (data.qty * data.taxValue);
+                totalTaxAmount += totalAmount;
+                totalGst += gstAmount;
+                grandTotal += totalAmount+gstAmount+totalTax;
+                console.log("my data => ",totalTaxAmount,totalGst,grandTotal,gstAmount)
+            }
+        }) 
+        itemList['itemTotal'] = {
+            totalTaxAmount : totalTaxAmount,
+            totalGst : totalGst,
+            grandTotal : grandTotal,
+            amount : grandTotal-discount,
+            discount : discount,
+            roundOff : roundOff
+        };
+        console.log("totalTaxAmount => ",totalTaxAmount)
+        console.log("gstAmount => ",totalGst)
+        console.log("totalTax => ",grandTotal)
+        document.getElementById(`totalTaxAmount`).value = totalTaxAmount;
+        document.getElementById(`grandTotal`).value = grandTotal;
+        document.getElementById(`gstAmount`).value = totalGst;
+    }
+
+    const updateSearchItem = (element) => {
+        let itemData = document.getElementById(element);
+        let i = element.id.split('-')[1];
+        let data = JSON.parse(document.getElementById(`item-list-${ i }`).value);
+        let qty = document.getElementById(`qty-${ i }`).value;
+        document.getElementById(`unit-price-${ i }`).value = data.price;
+        document.getElementById(`mrp-${ i }`).value = data.price * qty;
+        document.getElementById(`tax-value-${ i }`).value = data.taxValue;
+        document.getElementById(`gst-precent-${ i }`).value = data.gstPercent;
+        document.getElementById(`gst-amt-${ i }`).value = (((data.gstPercent / 100) * data.price) * qty);
+        document.getElementById(`total-${ i }`).value = (((data.gstPercent / 100) * data.price) * qty)+(data.price*qty)+data.taxValue;
+        document.getElementById(`staff-${ i }`).value = data.staff;   
+    }
+
+    const updateQty = (element, index) => {
+        console.log("daf => ",element,index,element.value)
+        itemList[index].qty = Number(element.value)
+        console.log(itemList)
+        if(element.value > 0) {
+            updateDate()
+            cloneAndAddRow();
+        }
+    }
+
+
+    document.addEventListener('keyup', function(event) {
+        if (event.target.classList.contains('searchItem')) {
+            console.log(event.target.id);
+            let id = event.target.id.split('-')[1];
+            console.log(id)
+            if(event.target.value.length) {
+                axios.post('/api/admin/getProduct', { name: event.target.value })
+                    .then(response => {
+                        const result = response.data
+                        if (result.error) {
+                            return Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: result.message,
+                            });
+                        }
+                        console.log(result)
+                        if(!result.data.length) {
+                            return Swal.fire({
+                                icon: "error",
+                                // title: "Oops...",
+                                text: 'No Data found',
+                            }); 
+                        }
+                        let itemList = "";
+                        result.data.map((item, index) => {
+                            itemList += `
+                                <li onclick="selectItem('item-data-${ id }-${ index }','${ id }')"> 
+                                    ${ item.name } 
+                                    <input type="hidden" id="item-data-${ id }-${ index }" value='${ JSON.stringify(item) }' />
+                                </li>
+                            `;
+                        })
+                        let searchElement = document.getElementById(`searchList-${id}`);
+                        searchElement.innerHTML = itemList;
+                        searchElement.classList.add("active");
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+          
+        }
+    });
+    
+
+</script>
+</html>
