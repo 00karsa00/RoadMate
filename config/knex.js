@@ -1,13 +1,25 @@
 const knex = require('knex');
 
-// Knex configuration for MySQL
+// // Knex configuration for MySQL
+// const db = knex({
+//   client: 'mysql',
+//   connection: {
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'root',
+//     database: 'interview_task',
+//   },
+// });
+
+
+// live Knex configuration for MySQL
 const db = knex({
   client: 'mysql',
   connection: {
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'interview_task',
+    host: 'sql6.freesqldatabase.com',
+    user: 'sql6694356',
+    password: 'ZgU4K8DXbz',
+    database: 'sql6694356',
   },
 });
 
