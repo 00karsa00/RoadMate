@@ -1,7 +1,8 @@
 const db = require('../config/knex')
 const users = 'users';
 const billdetail = 'billdetails';
-const itemDetail = 'itemDetailS';
+const itemDetail = 'itemDetails';
+
 const billingitemdetail = 'billingitemdetails';
 
 exports.getAdmin = (item) => {
